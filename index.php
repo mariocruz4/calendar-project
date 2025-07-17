@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="Un proyecto de calendario interactivo" />
 
-        <title>Proyecto Calendario</title>
+        <title>Mi Calendario</title>
 
         <link rel="stylesheet" href="css/style.css" />
 
@@ -29,55 +29,64 @@
 
             <div class="calendar">
                 <div class="nav-btn-container">
-                    <button class="nav-btn"></button>
+                    <button class="nav-btn">⏩</button>
                     <h2 id="monthYear" style="margin: 0"></h2>
-                    <button class="nav-btn"></button>
+                    <button class="nav-btn">⏪</button>
                 </div>
 
                 <div class="calendar-grid" id="calendar"></div>
             </div>
 
         <!-- Modal para Agregar/Editar/Borrar citas -->
+            <div class="modal" id="eventModal">
+                <div class="modal-content">
 
-            <div id="eventSelectorWrapper">
-                <label for="eventSelector">
-                    <strong>Selecciona una cita:</strong>
-                </label>
-                <select id="eventSelector">
-                    <option disable selected>Escoje una cita...</option>
-                </select>
+                    <div id="eventSelectorWrapper">
+                        <label for="eventSelector">
+                            <strong>📅 Selecciona una cita:</strong>
+                        </label>
+                        <select id="eventSelector">
+                            <option disable selected>Escoje una cita...</option>
+                        </select>
+                    </div>
+
+            <!-- Formulario Principal -->
+
+                    <form method="POST" id="eventForm">
+                        <input type="hidden" name="action" id="formAction" value="add" />
+                        <input type="hidden" name="even_id" id="eventId" />
+
+                        <label for="eventTitle">Título de la cita:</label>
+                        <input type="text" name="event_title" id="eventTitle" required />
+
+                        <label for="invitado">Invitado:</label>
+                        <input type="text" name="invitado" id="invitado" required />
+
+                        <label for="startDate">Fecha de inicio:</label>
+                        <input type="date" name="start_date" id="startDate" required />
+
+                        <label for="endDate">Fecha de fin:</label>
+                        <input type="date" name="end_date" id="endDate" required />
+
+                        <button type="submit">💾 Guardar</button>
+                    </form>
+
+            <!-- Formulario para Borrar -->
+
+                    <form method="POST" onsubmit="return confirm('¿Estás seguro que quieres borrar esta cita?')">
+                        <input type="hidden" name="action" value="delete" />
+                        <input type="hidden" name="event_id" id="deleteEventID" />
+                        <button type="submit" class="delete-btn">🗑 Borrar</button>
+                    </form>
+
+            <!-- ❌ Cancelar -->
+                    <button type="button" class="submit-btn">❌ Cancelar</button>
+        
+                </div>
             </div>
 
-        <!-- Main Form -->
-
-        <form method="POST" id="eventForm">
-            <input type="hidden" name="action" id="formAction" value="add">
-            <input type="hidden" name="even_id" id="eventId">
-
-            <label for="eventTitle">Título de la cita:</label>
-            <input type="text" name="event_title" id="eventTitle" required>
-
-            <label for="invitado">Invitado:</label>
-            <input type="text" name="invitado" id="invitado" required>
-
-            <label for="startDate">Fecha de inicio:</label>
-            <input type="date" name="start_date" id="startDate" required>
-
-            <label for="endDate">Fecha de fin:</label>
-            <input type="date" name="end_date" id="endDate" required>
-
-            <button type="submit">Guardar</button>
-        </form>
-
-        <!-- Delete Form -->
-
-            <form method="POST" onsubmit="return confirm('Are you sure you want to delete this appointment?')">
-                <input type="hidden" name="action" value="delete">
-                <input type="hidden" name="event_id" id="deleteEventId">
-                <button type="submit" class="submit-btn>Borrar cita</button>
-            </form>
-
-        <!-- Cancel -->
+        <script src="js/calendar.js"></script>
 
     </body>
+
 </html>
