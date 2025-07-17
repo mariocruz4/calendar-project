@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es-419" dir="ltr">
+<html lang="es-419" dir="ltf">
     <head>
 
         <meta charset="UTF-8" />
@@ -7,6 +7,10 @@
         <meta name="description" content="Un proyecto de calendario interactivo" />
 
         <title>Mi Calendario</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 
         <link rel="stylesheet" href="css/style.css" />
 
@@ -29,9 +33,9 @@
 
             <div class="calendar">
                 <div class="nav-btn-container">
-                    <button class="nav-btn">⏩</button>
-                    <h2 id="monthYear" style="margin: 0"></h2>
                     <button class="nav-btn">⏪</button>
+                    <h2 id="monthYear" style="margin: 0"></h2>
+                    <button class="nav-btn">⏩</button>
                 </div>
 
                 <div class="calendar-grid" id="calendar"></div>
