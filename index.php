@@ -72,6 +72,12 @@
                         <label for="endDate">Fecha de fin:</label>
                         <input type="date" name="end_date" id="endDate" required />
 
+                        <label for="startTime">Hora de inicio:</label>
+                        <input type="time" name="start_time" id="startTime" required />
+
+                        <label for="endTime">Hora de fin:</label>
+                        <input type="time" name="end_time" id="endTime" required />
+
                         <button type="submit">💾 Guardar</button>
                     </form>
 

@@ -13,13 +13,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && ($_POST["action"] ?? "") === "add")
     $intructor = trim($_POST["instructor_name"] ?? "");
     $start = $_POST["start_date"] ?? "";
     $end = $_POST["end_date"] ?? "";
+    $startTime = $_POST["start_time"] ?? "";
+    $endTime = $_POST["end_time"] ?? "";
 
     if ($course && $instructor && $start && $end) {
         $stmt = $conn->prepare(
-            "INSERT INTO appointments (course_name, instructor_name, start_date, end_date) VALUES (?, ?, ?, ?)"
+            "INSERT INTO appointments (course_name, instructor_name, start_date, end_date, start_time, end_time) VALUES (?, ?, ?, ?, ?, ?)"
         )
 
-        $stmt->bind_param("ssss", $course, $intructor, $start, $end);
+        $stmt->bind_param("ssssss", $course, $intructor, $start, $end, $startTime, $endTime);
 
         $stmt->execute();
 
@@ -41,13 +43,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && ($_POST["action"] ?? "") === "edit"
     $intructor = trim($_POST["instructor_name"] ?? "");
     $start = $_POST["start_date"] ?? "";
     $end = $_POST["end_date"] ?? "";
+    $startTime = $_POST["start_time"] ?? "";
+    $endTime = $_POST["end_time"] ?? "";
 
     if ($id && $course && $intructor && $start && $end) {
         $stmt = $conn->prepare(
-            "UPDATE appointments SET course_name = ?, instructor_name = ?, start_date = ?, end_date = ? WHERE id = ?"
+            "UPDATE appointments SET course_name = ?, instructor_name = ?, start_date = ?, end_date = ?, start_time = ?, end_time = ? WHERE id = ?"
         );
 
-        $stmt->bind_param("ssssi", $course, $intructor, $start, $end, $id);
+        $stmt->bind_param("ssssssi", $course, $intructor, $start, $end, $startTime, $endTime, $id);
 
         $stmt->execute();
 
@@ -102,7 +106,12 @@ if ($result && $result->num_rows > 0) {
         while ($start <= $end) {
             $eventsFromDB[] = [
                 "id" => $row["id"],
-                "title" => "{$row["course_name"]} - {$row["instructor_name"]}", "date" => $start->format("Y-m-d"), "end" => $rowÑ["end_date"]
+                "title" => "{$row["course_name"]} - {$row["instructor_name"]}", "date" => $start->format("Y-m-d"), "start" => $row["start_date"], "end" => $row["end_date"], "start_time" => $row["start_time"], "end_time" => $row["end_time"]
             ];
+
             $start->modify("+1 day");
         }
+    }
+}
+
+$conn->close();
