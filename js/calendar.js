@@ -60,7 +60,7 @@ function renderCalendar(date = new Date()) {
 
 
         //Render events
-        eventsToday.forEach(event => {
+        eventToday.forEach(event => {
             const ev = document.createElement('div');
             ev.className = 'event';
 
@@ -68,12 +68,13 @@ function renderCalendar(date = new Date()) {
             courseEl.className = 'course';
             courseEl.textContent = event.title.split(' - ')[0];
 
+            const instructorEl = document.createElement('div');
             instructorEl.className = 'instructor';
-            instrocturEl.textContent = "Instructor: " + event.title.split(' - ')[1];
+            instructorEl.textContent = "Instructor: " + event.title.split(' - ')[1];
 
             const timeEl = document.createElement('div');
             timeEl.className = 'time';
-            timeEl.textContent = "Reloj" + event.start_time + " - " + event.end_time();
+            timeEl.textContent = "Reloj" + event.start_time + " - " + event.end_time;
 
             ev.appendChild(courseEl);
             ev.appendChild(instructorEl);
@@ -135,7 +136,7 @@ function openModalForAdd(dateStr) {
 
 
     if (selector && wrapper) {
-        selector.innterHTML = '';
+        selector.innerHTML = '';
         wrapper.style.display = 'none';
     }
 
@@ -175,7 +176,7 @@ function handleEventSelection(eventJSON) {
     document.getElementById('eventId').value = event.id;
     document.getElementById('deleteEventId').value = event.id;
 
-    const [couse, instructor] = event.title.split (' - ').map(e => e.trim());
+    const [course, instructor] = event.title.split (' - ').map(e => e.trim());
     document.getElementById('courseName').value = course || '';
     document.getElementById('instructorName').value = instructor || '';
     document.getElementById('startDate').value = event.start || '';

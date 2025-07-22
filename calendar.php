@@ -10,7 +10,7 @@ $eventsFromDB = []; // Initialize an empty array to hold events
 # Handle Add Appointment
 if ($_SERVER["REQUEST_METHOD"] === "POST" && ($_POST["action"] ?? "") === "add") {
     $course = trim($_POST["course_name"] ?? "");
-    $intructor = trim($_POST["instructor_name"] ?? "");
+    $instructor = trim($_POST["instructor_name"] ?? "");
     $start = $_POST["start_date"] ?? "";
     $end = $_POST["end_date"] ?? "";
     $startTime = $_POST["start_time"] ?? "";
@@ -19,9 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && ($_POST["action"] ?? "") === "add")
     if ($course && $instructor && $start && $end) {
         $stmt = $conn->prepare(
             "INSERT INTO appointments (course_name, instructor_name, start_date, end_date, start_time, end_time) VALUES (?, ?, ?, ?, ?, ?)"
-        )
+        );
 
-        $stmt->bind_param("ssssss", $course, $intructor, $start, $end, $startTime, $endTime);
+        $stmt->bind_param("ssssss", $course, $instructor, $start, $end, $startTime, $endTime);
 
         $stmt->execute();
 
@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && ($_POST["action"] ?? "") === "add")
         header("Location: ".$_SERVER["PHP_SELF"]."?success=1");
         exit;
     } else {
-        header("Location: ".$_SERVER["PHP_SELF"]."error");
+        header("Location: ".$_SERVER["PHP_SELF"]."error=1");
         exit;
     }
 }
@@ -40,18 +40,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && ($_POST["action"] ?? "") === "edit"
 
     $id = $_POST["event_id"] ?? null;
     $course = trim($_POST["course_name"] ?? "");
-    $intructor = trim($_POST["instructor_name"] ?? "");
+    $instructor = trim($_POST["instructor_name"] ?? "");
     $start = $_POST["start_date"] ?? "";
     $end = $_POST["end_date"] ?? "";
     $startTime = $_POST["start_time"] ?? "";
     $endTime = $_POST["end_time"] ?? "";
 
-    if ($id && $course && $intructor && $start && $end) {
+    if ($id && $course && $instructor && $start && $end) {
         $stmt = $conn->prepare(
             "UPDATE appointments SET course_name = ?, instructor_name = ?, start_date = ?, end_date = ?, start_time = ?, end_time = ? WHERE id = ?"
         );
 
-        $stmt->bind_param("ssssssi", $course, $intructor, $start, $end, $startTime, $endTime, $id);
+        $stmt->bind_param("ssssssi", $course, $instructor, $start, $end, $startTime, $endTime, $id);
 
         $stmt->execute();
 
@@ -91,12 +91,12 @@ if (isset($_GET["success"])) {
 }
 
 if (isset($_GET["error"])) {
-    $errorMsg = "❗ Failed to add appointment. Please fill all fields."
+    $errorMsg = "❗ Failed to add appointment. Please fill all fields.";
 }
 
 
 // Fetch all appointments and Spread Overt Date Range
-$result = $conn->query("SELECT * FROM appointments);
+$result = $conn->query("SELECT * FROM appointments");
 
 if ($result && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {

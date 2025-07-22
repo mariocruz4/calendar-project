@@ -1,3 +1,7 @@
+<?php
+include "calendar.php";
+?>
+
 <!DOCTYPE html>
 <html lang="es-419" dir="ltf">
     <head>
@@ -20,7 +24,7 @@
         <!-- Header -->
 
             <header>
-                <h1>🗓 Calendario<br> Mi primer proyecto completo</h1>
+                <h1>🗓 Calendario<br> Mi primer proyecto Full-Stack</h1>
             </header>
 
         <!-- Reloj -->
@@ -58,13 +62,13 @@
 
                     <form method="POST" id="eventForm">
                         <input type="hidden" name="action" id="formAction" value="add" />
-                        <input type="hidden" name="even_id" id="eventId" />
+                        <input type="hidden" name="event_id" id="eventId" />
 
-                        <label for="eventTitle">Título de la cita:</label>
-                        <input type="text" name="event_title" id="eventTitle" required />
+                        <label for="courseName">Título de la cita:</label>
+                        <input type="text" name="course_name" id="courseName" required />
 
-                        <label for="invitado">Invitado:</label>
-                        <input type="text" name="invitado" id="invitado" required />
+                        <label for="instructor">Invitado:</label>
+                        <input type="text" name="instructor_name" id="instructorName" required />
 
                         <label for="startDate">Fecha de inicio:</label>
                         <input type="date" name="start_date" id="startDate" required />
@@ -91,9 +95,13 @@
 
             <!-- ❌ Cancelar -->
                     <button type="button" class="submit-btn">❌ Cancelar</button>
-        
+
                 </div>
             </div>
+
+        <script>
+            const events = <?= json_encode($eventsFromDB, JSON_UNESCAPED_UNICODE); ?>;
+        </script>
 
         <script src="js/calendar.js"></script>
 
