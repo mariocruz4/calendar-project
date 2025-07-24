@@ -37,9 +37,9 @@ include "calendar.php";
 
             <div class="calendar">
                 <div class="nav-btn-container">
-                    <button class="nav-btn">⏪</button>
+                    <button class="nav-btn" onclick="changeMonth(-1)">⏪</button>
                     <h2 id="monthYear" style="margin: 0"></h2>
-                    <button class="nav-btn">⏩</button>
+                    <button class="nav-btn" onclick="changeMonth(1)">⏩</button>
                 </div>
 
                 <div class="calendar-grid" id="calendar"></div>
@@ -61,7 +61,7 @@ include "calendar.php";
             <!-- Formulario Principal -->
 
                     <form method="POST" id="eventForm">
-                        <input type="hidden" name="action" id="formAction" value="add" />
+                        <input type="hidden" name="action" id="fromAction" value="add" />
                         <input type="hidden" name="event_id" id="eventId" />
 
                         <label for="courseName">Título de la cita:</label>
@@ -89,7 +89,7 @@ include "calendar.php";
 
                     <form method="POST" onsubmit="return confirm('¿Estás seguro que quieres borrar esta cita?')">
                         <input type="hidden" name="action" value="delete" />
-                        <input type="hidden" name="event_id" id="deleteEventID" />
+                        <input type="hidden" name="event_id" id="deleteEventId" />
                         <button type="submit" class="delete-btn">🗑 Borrar</button>
                     </form>
 

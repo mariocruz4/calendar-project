@@ -229,8 +229,9 @@ header {
     position: fixed;
     inset: 0;
     display: none;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
+    padding: 1rem;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 9999;
 }
@@ -240,8 +241,10 @@ header {
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    max-width: 420px;
+    overflow-y: auto;
     width: 100%;
+    max-width: 420px;
+    max-height: 90vh;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;

@@ -16,9 +16,7 @@ function renderCalendar(date = new Date()) {
     const firstDayOfMonth = new Date(year, month, 1).getDay();
 
     //Display month and year
-    monthYearEl.textContent = date.toLocaleDateString('es-MX', {       month: 'long',
-            year: 'numeric'
-    });
+    monthYearEl.textContent = date.toLocaleDateString('es-MX', {month: 'long', year: 'numeric'});
 
     const weekDays = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
     weekDays.forEach(day => {
@@ -50,7 +48,7 @@ function renderCalendar(date = new Date()) {
 
 
         const dateEl = document.createElement('div');
-        dateEl.className = 'date-number';
+        dateEl.className = 'day-number';
         dateEl.textContent = day;
         cell.appendChild(dateEl);
 
@@ -121,6 +119,9 @@ function renderCalendar(date = new Date()) {
 
 //Add Event Modal
 function openModalForAdd(dateStr) {
+    modalEl.style.display = "flex";
+    document.body.style.overflow = "hidden";
+
     document.getElementById('fromAction').value = 'add';
     document.getElementById('eventId').value = '';
     document.getElementById('courseName').value = '';
@@ -146,8 +147,10 @@ function openModalForAdd(dateStr) {
 
 //Edit Event Modal
 function openModalForEdit(eventsOnDate) {
-    document.getElementById('fromAction').value = 'edit';
     modalEl.style.display = "flex";
+    document.body.style.overflow = "hidden";
+
+    document.getElementById('fromAction').value = 'edit';
 
     const selector = document.getElementById('eventSelector');
     const wrapper = document.getElementById('eventSelectorWrapper');
@@ -189,6 +192,7 @@ function handleEventSelection(eventJSON) {
 
 function closeModal() {
     modalEl.style.display = "none";
+    document.body.style.overflow = "";
 }
 
 // Month Navigation
@@ -213,3 +217,5 @@ function updateClock() {
 renderCalendar(currentDate);
 updateClock();
 setInterval(updateClock, 1000);
+
+document.querySelector('.modal .submit-btn').addEventListener('click', closeModal);
